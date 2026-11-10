@@ -148,3 +148,9 @@
 .fptlp .fptlp-hero--stacked .fptlp-hero-actions,
 .fptlp .fptlp-hero--stacked .fptlp-trust{justify-content:center}
 .fptlp .fptlp-hero--stacked .fptlp-hero-callback{text-align:center}
+
+/* 1.9.25: each banner slide follows its own image ratio. */
+.fptlp-banner-track{display:block;width:100%}
+.fptlp .fptlp-banner-slide[hidden]{display:none!important;visibility:visible;pointer-events:auto}
+.fptlp .fptlp-banner-slide:not([hidden]){display:block;width:100%}
+.fptlp .fptlp-banner-slide img{width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important}

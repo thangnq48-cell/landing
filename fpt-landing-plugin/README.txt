@@ -1,3 +1,6 @@
+FPT LANDING PAGE — 1.9.25
+- Mỗi ảnh banner tự giữ tỷ lệ riêng; khung slide co theo chiều cao ảnh đang hiển thị.
+
 FPT LANDING PAGE — 1.9.24
 - Tiêu đề chính ngoài trang hiển thị nguyên văn nội dung đã lưu, không tự đổi tiêu đề cũ.
 
