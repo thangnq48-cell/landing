@@ -1,3 +1,7 @@
+FPT LANDING PAGE — 1.9.21
+- Chuyển toàn bộ banner và slide 2–6 sang FPT Landing Page > Quản lý banner.
+- Bỏ các ô ảnh banner khỏi Cài đặt chung; giữ nguyên dữ liệu ảnh đã lưu.
+
 FPT LANDING PAGE — 1.9.20
 - Banner nằm trên tiêu đề. Cài đặt chung: banner đầu tiên và slide 2–6.
 - Chuyển ảnh bằng nút, chấm chọn, bàn phím hoặc vuốt trên điện thoại.

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: FPT Landing Page Đăng Ký
  * Description: Landing page dịch vụ Internet FPT responsive, quản lý gói cước và lưu khách hàng đăng ký. Dùng shortcode [fpt_landing_page].
- * Version: 1.9.20
+ * Version: 1.9.21
  * Author: OpenAI
  * Text Domain: fpt-landing-page
  */
@@ -322,8 +322,7 @@ class FPT_Landing_Page {
         <tr><th><label for="fptlp_<?php echo esc_attr($field); ?>"><?php echo esc_html($label); ?></label></th><td><input type="color" id="fptlp_<?php echo esc_attr($field); ?>" name="<?php echo esc_attr(self::OPT.'['.$field.']'); ?>" value="<?php echo esc_attr($s[$field]); ?>"> <span class="description">Mặc định: <?php echo esc_html($this->defaults()[$field]); ?></span></td></tr>
         <?php endforeach; ?><tr><td colspan="2"><p class="description">Chọn cùng màu nền đầu và cuối để dùng nền một màu. Bấm Lưu cài đặt, sau đó xóa cache nếu website chưa cập nhật.</p></td></tr>
         <tr><th><label for="fptlp_accent">Màu chủ đạo</label></th><td><input type="color" id="fptlp_accent" name="<?php echo esc_attr(self::OPT); ?>[accent]" value="<?php echo esc_attr($s['accent']); ?>"></td></tr>
-        <tr><th>Ảnh banner đầu trang</th><td><?php $this->image_field(self::OPT.'[banner_url]', $s['banner_url'], 'Ảnh banner'); ?></td></tr>
-        <?php foreach (range(2,6) as $n): ?><tr><th>Banner slide <?php echo (int)$n; ?></th><td><?php $this->image_field(self::OPT.'[banner_slide_'.$n.']', $s['banner_slide_'.$n], 'Ảnh slide '.$n); ?><p class="description">Để trống để bỏ qua. Dùng ảnh cùng tỷ lệ với banner đầu tiên để chuyển ảnh ổn định.</p></td></tr><?php endforeach; ?>
+
 
         <tr><th>Cam kết hỗ trợ</th><td><?php foreach (['trust_1','trust_2','trust_3'] as $i=>$field): ?><p><label for="fptlp_<?php echo esc_attr($field); ?>">Nội dung <?php echo (int)$i+1; ?></label><br><input class="regular-text" id="fptlp_<?php echo esc_attr($field); ?>" name="<?php echo esc_attr(self::OPT.'['.$field.']'); ?>" value="<?php echo esc_attr($s[$field]); ?>"></p><?php endforeach; ?><p class="description">Ba dòng có dấu ✓ dưới phần giới thiệu đầu trang. Để trống dòng nào để ẩn dòng đó.</p></td></tr>
         <tr><th>Danh mục trống</th><td><input type="hidden" name="<?php echo esc_attr(self::OPT); ?>[hide_empty_categories]" value="0"><label><input type="checkbox" name="<?php echo esc_attr(self::OPT); ?>[hide_empty_categories]" value="1" <?php if ($s['hide_empty_categories']==='1') echo 'checked'; ?>> Ẩn danh mục chưa có gói, bao gồm mục doanh nghiệp</label><p class="description">Bật để trang gọn hơn. Các danh mục vẫn chỉnh sửa được trong quản trị.</p></td></tr>
@@ -340,8 +339,8 @@ class FPT_Landing_Page {
     public function enqueue_admin_assets($hook) {
         if (!in_array($hook, $this->admin_page_hooks, true) || !current_user_can('manage_options')) return;
         wp_enqueue_media();
-        wp_enqueue_style('fptlp-admin', plugins_url('assets/fptlp-admin.css', __FILE__), [], '1.9.20');
-        wp_enqueue_script('fptlp-admin', plugins_url('assets/fptlp-admin.js', __FILE__), ['jquery', 'media-editor'], '1.9.20', true);
+        wp_enqueue_style('fptlp-admin', plugins_url('assets/fptlp-admin.css', __FILE__), [], '1.9.21');
+        wp_enqueue_script('fptlp-admin', plugins_url('assets/fptlp-admin.js', __FILE__), ['jquery', 'media-editor'], '1.9.21', true);
     }
     private function render_banner_slider($s) {
         $slides=[];
@@ -460,9 +459,11 @@ class FPT_Landing_Page {
     }
     public function banner_page() {
         if (!$this->admin_start('Quản lý ảnh banner')) return; $s=$this->settings(); ?>
-        <div class="fptlp-banner-card"><h2>Banner đầu landing page</h2><p>Chọn ảnh từ thư viện hoặc tải ảnh mới lên. Ảnh xem trước được cập nhật ngay khi chọn.</p>
-        <?php $this->image_field(self::OPT.'[banner_url]', $s['banner_url'], 'Ảnh banner'); ?>
-        <p class="description">Gỡ ảnh để dùng hình minh họa mặc định.</p></div>
+        <div class="fptlp-banner-card"><h2>Banner dạng slide đầu landing page</h2><p>Quản lý toàn bộ ảnh banner tại đây. Chọn ảnh từ thư viện hoặc tải ảnh mới lên; ảnh được hiển thị theo thứ tự từ trên xuống.</p>
+        <table class="form-table" role="presentation">
+        <tr><th>Ảnh banner đầu trang</th><td><?php $this->image_field(self::OPT.'[banner_url]', $s['banner_url'], 'Ảnh banner'); ?></td></tr>
+        <?php foreach (range(2,6) as $n): ?><tr><th>Banner slide <?php echo (int)$n; ?></th><td><?php $this->image_field(self::OPT.'[banner_slide_'.$n.']', $s['banner_slide_'.$n], 'Ảnh slide '.$n); ?><p class="description">Để trống để bỏ qua. Dùng ảnh cùng tỷ lệ với banner đầu tiên để chuyển ảnh ổn định.</p></td></tr><?php endforeach; ?>
+        </table><p class="description">Có thể dùng tối đa 6 ảnh. Ô trống được bỏ qua; một ảnh sẽ ẩn nút chuyển slide. Gỡ tất cả ảnh để ẩn banner. Bấm Lưu banner để áp dụng.</p></div>
         <?php submit_button('Lưu banner'); echo '</form></div>';
     }
     public function registration_page() {
@@ -476,12 +477,12 @@ class FPT_Landing_Page {
         <?php submit_button('Lưu cài đặt đăng ký'); echo '</form></div>';
     }
     public function register_assets() {
-        wp_register_style('fptlp-style', plugins_url('assets/fptlp.css', __FILE__), [], '1.9.20');
-        wp_register_script('fptlp-script', plugins_url('assets/fptlp.js', __FILE__), [], '1.9.20', true);
-        wp_register_style('fptlp-catalog', plugins_url('assets/fptlp-catalog.css', __FILE__), ['fptlp-style'], '1.9.20');
-        wp_register_script('fptlp-catalog', plugins_url('assets/fptlp-catalog.js', __FILE__), ['fptlp-script'], '1.9.20', true);
-        wp_register_style('fptlp-content', plugins_url('assets/fptlp-content.css', __FILE__), ['fptlp-catalog'], '1.9.20');
-        wp_register_script('fptlp-content', plugins_url('assets/fptlp-content.js', __FILE__), ['fptlp-catalog'], '1.9.20', true);
+        wp_register_style('fptlp-style', plugins_url('assets/fptlp.css', __FILE__), [], '1.9.21');
+        wp_register_script('fptlp-script', plugins_url('assets/fptlp.js', __FILE__), [], '1.9.21', true);
+        wp_register_style('fptlp-catalog', plugins_url('assets/fptlp-catalog.css', __FILE__), ['fptlp-style'], '1.9.21');
+        wp_register_script('fptlp-catalog', plugins_url('assets/fptlp-catalog.js', __FILE__), ['fptlp-script'], '1.9.21', true);
+        wp_register_style('fptlp-content', plugins_url('assets/fptlp-content.css', __FILE__), ['fptlp-catalog'], '1.9.21');
+        wp_register_script('fptlp-content', plugins_url('assets/fptlp-content.js', __FILE__), ['fptlp-catalog'], '1.9.21', true);
         // Detect normal content, synced blocks and Elementor templates before wp_head.
         if ($this->should_load_assets()) $this->enqueue_landing_assets();
     }
