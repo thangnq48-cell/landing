@@ -131,3 +131,13 @@
 .fptlp .fptlp-banner-dots button[aria-pressed="true"]{width:22px}
 .fptlp .fptlp-banner-slider button:focus-visible{outline:2px solid #123d81;outline-offset:3px}
 @media(max-width:600px){.fptlp .fptlp-hero--stacked{gap:18px;padding:14px}.fptlp-banner-slider{border-radius:12px}.fptlp .fptlp-banner-arrow{width:30px;height:30px;font-size:25px}.fptlp-banner-prev{left:6px}.fptlp-banner-next{right:6px}}
+
+/* 1.9.22: close the gap below the theme header on banner landings. */
+#content.page-wrapper:has(.fptlp-hero--stacked > .fptlp-banner-slider){padding-top:0!important}
+.elementor > .elementor-section:first-child:has(.fptlp-hero--stacked > .fptlp-banner-slider),
+.elementor > .e-con:first-child:has(.fptlp-hero--stacked > .fptlp-banner-slider){padding-top:0!important;margin-top:0!important}
+.elementor-widget-wrap:has(> .elementor-widget-shortcode .fptlp-hero--stacked > .fptlp-banner-slider),
+.elementor-widget-shortcode:has(.fptlp-hero--stacked > .fptlp-banner-slider),
+.elementor-widget-container:has(> .elementor-shortcode > .fptlp > .fptlp-hero--stacked > .fptlp-banner-slider){padding-top:0!important;margin-top:0!important}
+.fptlp:has(> .fptlp-hero--stacked > .fptlp-banner-slider){margin-top:0!important}
+.fptlp .fptlp-hero--stacked:has(> .fptlp-banner-slider){padding-top:0!important}

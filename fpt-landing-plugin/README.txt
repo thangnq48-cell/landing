@@ -1,3 +1,7 @@
+FPT LANDING PAGE — 1.9.22
+- Bỏ khoảng đệm trên banner và phần bọc Flatsome/Elementor chứa landing có banner.
+- Xóa cache website/CDN sau khi cập nhật.
+
 FPT LANDING PAGE — 1.9.21
 - Chuyển toàn bộ banner và slide 2–6 sang FPT Landing Page > Quản lý banner.
 - Bỏ các ô ảnh banner khỏi Cài đặt chung; giữ nguyên dữ liệu ảnh đã lưu.
