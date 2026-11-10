@@ -141,3 +141,10 @@
 .elementor-widget-container:has(> .elementor-shortcode > .fptlp > .fptlp-hero--stacked > .fptlp-banner-slider){padding-top:0!important;margin-top:0!important}
 .fptlp:has(> .fptlp-hero--stacked > .fptlp-banner-slider){margin-top:0!important}
 .fptlp .fptlp-hero--stacked:has(> .fptlp-banner-slider){padding-top:0!important}
+
+/* 1.9.23: center the introduction below the banner. */
+.fptlp .fptlp-hero--stacked > .fptlp-hero-copy{width:100%;max-width:960px;min-width:0;margin-inline:auto;text-align:center}
+.fptlp .fptlp-hero--stacked > .fptlp-hero-copy > p{margin-left:auto;margin-right:auto}
+.fptlp .fptlp-hero--stacked .fptlp-hero-actions,
+.fptlp .fptlp-hero--stacked .fptlp-trust{justify-content:center}
+.fptlp .fptlp-hero--stacked .fptlp-hero-callback{text-align:center}

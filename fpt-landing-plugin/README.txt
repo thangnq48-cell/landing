@@ -1,3 +1,8 @@
+FPT LANDING PAGE — 1.9.23
+- Căn giữa tiêu đề, mô tả, nút tư vấn và các dòng hỗ trợ dưới banner.
+- Khối giới thiệu giới hạn chiều rộng để dễ đọc trên desktop và tự co trên mobile.
+- Xóa cache sau khi cập nhật.
+
 FPT LANDING PAGE — 1.9.22
 - Bỏ khoảng đệm trên banner và phần bọc Flatsome/Elementor chứa landing có banner.
 - Xóa cache website/CDN sau khi cập nhật.

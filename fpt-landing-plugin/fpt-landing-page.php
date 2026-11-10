@@ -2,7 +2,7 @@
 /**
  * Plugin Name: FPT Landing Page Đăng Ký
  * Description: Landing page dịch vụ Internet FPT responsive, quản lý gói cước và lưu khách hàng đăng ký. Dùng shortcode [fpt_landing_page].
- * Version: 1.9.22
+ * Version: 1.9.23
  * Author: OpenAI
  * Text Domain: fpt-landing-page
  */
@@ -339,8 +339,8 @@ class FPT_Landing_Page {
     public function enqueue_admin_assets($hook) {
         if (!in_array($hook, $this->admin_page_hooks, true) || !current_user_can('manage_options')) return;
         wp_enqueue_media();
-        wp_enqueue_style('fptlp-admin', plugins_url('assets/fptlp-admin.css', __FILE__), [], '1.9.22');
-        wp_enqueue_script('fptlp-admin', plugins_url('assets/fptlp-admin.js', __FILE__), ['jquery', 'media-editor'], '1.9.22', true);
+        wp_enqueue_style('fptlp-admin', plugins_url('assets/fptlp-admin.css', __FILE__), [], '1.9.23');
+        wp_enqueue_script('fptlp-admin', plugins_url('assets/fptlp-admin.js', __FILE__), ['jquery', 'media-editor'], '1.9.23', true);
     }
     private function render_banner_slider($s) {
         $slides=[];
@@ -477,12 +477,12 @@ class FPT_Landing_Page {
         <?php submit_button('Lưu cài đặt đăng ký'); echo '</form></div>';
     }
     public function register_assets() {
-        wp_register_style('fptlp-style', plugins_url('assets/fptlp.css', __FILE__), [], '1.9.22');
-        wp_register_script('fptlp-script', plugins_url('assets/fptlp.js', __FILE__), [], '1.9.22', true);
-        wp_register_style('fptlp-catalog', plugins_url('assets/fptlp-catalog.css', __FILE__), ['fptlp-style'], '1.9.22');
-        wp_register_script('fptlp-catalog', plugins_url('assets/fptlp-catalog.js', __FILE__), ['fptlp-script'], '1.9.22', true);
-        wp_register_style('fptlp-content', plugins_url('assets/fptlp-content.css', __FILE__), ['fptlp-catalog'], '1.9.22');
-        wp_register_script('fptlp-content', plugins_url('assets/fptlp-content.js', __FILE__), ['fptlp-catalog'], '1.9.22', true);
+        wp_register_style('fptlp-style', plugins_url('assets/fptlp.css', __FILE__), [], '1.9.23');
+        wp_register_script('fptlp-script', plugins_url('assets/fptlp.js', __FILE__), [], '1.9.23', true);
+        wp_register_style('fptlp-catalog', plugins_url('assets/fptlp-catalog.css', __FILE__), ['fptlp-style'], '1.9.23');
+        wp_register_script('fptlp-catalog', plugins_url('assets/fptlp-catalog.js', __FILE__), ['fptlp-script'], '1.9.23', true);
+        wp_register_style('fptlp-content', plugins_url('assets/fptlp-content.css', __FILE__), ['fptlp-catalog'], '1.9.23');
+        wp_register_script('fptlp-content', plugins_url('assets/fptlp-content.js', __FILE__), ['fptlp-catalog'], '1.9.23', true);
         // Detect normal content, synced blocks and Elementor templates before wp_head.
         if ($this->should_load_assets()) $this->enqueue_landing_assets();
     }
