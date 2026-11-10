@@ -1,3 +1,6 @@
+FPT LANDING PAGE — 1.9.24
+- Tiêu đề chính ngoài trang hiển thị nguyên văn nội dung đã lưu, không tự đổi tiêu đề cũ.
+
 FPT LANDING PAGE — 1.9.23
 - Căn giữa tiêu đề, mô tả, nút tư vấn và các dòng hỗ trợ dưới banner.
 - Khối giới thiệu giới hạn chiều rộng để dễ đọc trên desktop và tự co trên mobile.

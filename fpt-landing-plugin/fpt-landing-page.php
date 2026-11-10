@@ -2,7 +2,7 @@
 /**
  * Plugin Name: FPT Landing Page Đăng Ký
  * Description: Landing page dịch vụ Internet FPT responsive, quản lý gói cước và lưu khách hàng đăng ký. Dùng shortcode [fpt_landing_page].
- * Version: 1.9.23
+ * Version: 1.9.24
  * Author: OpenAI
  * Text Domain: fpt-landing-page
  */
@@ -339,8 +339,8 @@ class FPT_Landing_Page {
     public function enqueue_admin_assets($hook) {
         if (!in_array($hook, $this->admin_page_hooks, true) || !current_user_can('manage_options')) return;
         wp_enqueue_media();
-        wp_enqueue_style('fptlp-admin', plugins_url('assets/fptlp-admin.css', __FILE__), [], '1.9.23');
-        wp_enqueue_script('fptlp-admin', plugins_url('assets/fptlp-admin.js', __FILE__), ['jquery', 'media-editor'], '1.9.23', true);
+        wp_enqueue_style('fptlp-admin', plugins_url('assets/fptlp-admin.css', __FILE__), [], '1.9.24');
+        wp_enqueue_script('fptlp-admin', plugins_url('assets/fptlp-admin.js', __FILE__), ['jquery', 'media-editor'], '1.9.24', true);
     }
     private function render_banner_slider($s) {
         $slides=[];
@@ -477,12 +477,12 @@ class FPT_Landing_Page {
         <?php submit_button('Lưu cài đặt đăng ký'); echo '</form></div>';
     }
     public function register_assets() {
-        wp_register_style('fptlp-style', plugins_url('assets/fptlp.css', __FILE__), [], '1.9.23');
-        wp_register_script('fptlp-script', plugins_url('assets/fptlp.js', __FILE__), [], '1.9.23', true);
-        wp_register_style('fptlp-catalog', plugins_url('assets/fptlp-catalog.css', __FILE__), ['fptlp-style'], '1.9.23');
-        wp_register_script('fptlp-catalog', plugins_url('assets/fptlp-catalog.js', __FILE__), ['fptlp-script'], '1.9.23', true);
-        wp_register_style('fptlp-content', plugins_url('assets/fptlp-content.css', __FILE__), ['fptlp-catalog'], '1.9.23');
-        wp_register_script('fptlp-content', plugins_url('assets/fptlp-content.js', __FILE__), ['fptlp-catalog'], '1.9.23', true);
+        wp_register_style('fptlp-style', plugins_url('assets/fptlp.css', __FILE__), [], '1.9.24');
+        wp_register_script('fptlp-script', plugins_url('assets/fptlp.js', __FILE__), [], '1.9.24', true);
+        wp_register_style('fptlp-catalog', plugins_url('assets/fptlp-catalog.css', __FILE__), ['fptlp-style'], '1.9.24');
+        wp_register_script('fptlp-catalog', plugins_url('assets/fptlp-catalog.js', __FILE__), ['fptlp-script'], '1.9.24', true);
+        wp_register_style('fptlp-content', plugins_url('assets/fptlp-content.css', __FILE__), ['fptlp-catalog'], '1.9.24');
+        wp_register_script('fptlp-content', plugins_url('assets/fptlp-content.js', __FILE__), ['fptlp-catalog'], '1.9.24', true);
         // Detect normal content, synced blocks and Elementor templates before wp_head.
         if ($this->should_load_assets()) $this->enqueue_landing_assets();
     }
@@ -652,7 +652,7 @@ class FPT_Landing_Page {
           $messages=['success'=>'Cảm ơn bạn! Thông tin đã được ghi nhận.','duplicate'=>'Yêu cầu này đã được ghi nhận trước đó. Bạn không cần gửi lại.','invalid_phone'=>'Số điện thoại chưa hợp lệ. Vui lòng nhập số di động hoặc số cố định Việt Nam, có thể dùng +84.','expired'=>'Phiên đăng ký đã hết hạn. Vui lòng tải lại trang rồi thử lại.','rate_limited'=>'Bạn đã gửi nhiều yêu cầu trong thời gian ngắn. Vui lòng thử lại sau 10 phút hoặc gọi hotline.','busy'=>'Yêu cầu đang được xử lý. Vui lòng chờ một chút trước khi gửi lại.','error'=>'Chưa gửi được thông tin. Vui lòng thử lại hoặc gọi hotline.'];
           if (isset($messages[$status])): $ok=in_array($status,['success','duplicate'],true); ?><div id="fptlp-feedback" tabindex="-1" class="<?php echo $ok?'fptlp-success':'fptlp-error'; ?>" role="<?php echo $ok?'status':'alert'; ?>"><?php echo esc_html($messages[$status]); ?></div><?php endif; ?>
 
-          <section class="fptlp-hero fptlp-hero--stacked"><?php $this->render_banner_slider($s); ?><div class="fptlp-hero-copy"><span class="fptlp-eyebrow"><?php echo esc_html($s['eyebrow']); ?></span><h1><?php echo esc_html($s['headline']==='Lắp mạng FPT – Chọn gói phù hợp cho gia đình bạn'?'Lắp Internet FPT cho gia đình':$s['headline']); ?></h1><?php if ($s['service_area']!==''): ?><p class="fptlp-service-area">Khu vực phục vụ: <?php echo esc_html($s['service_area']); ?></p><?php endif; ?><p><?php echo esc_html($s['intro']); ?></p><p class="fptlp-hero-note"><?php echo esc_html($s['hero_note']); ?></p><div class="fptlp-hero-actions"><button type="button" class="fptlp-btn fptlp-popup-open" data-modal="register"><?php echo esc_html($s['hero_cta'] ?: 'Nhận báo giá tại địa chỉ của bạn'); ?></button><button type="button" class="fptlp-hero-callback fptlp-popup-open" data-modal="callback">Chưa biết chọn gói? Nhờ tư vấn</button></div><?php if ($s['trust_1']!=='' || $s['trust_2']!=='' || $s['trust_3']!==''): ?><div class="fptlp-trust"><?php foreach (['trust_1','trust_2','trust_3'] as $field) if ($s[$field]!==''): ?><span>✓ <?php echo esc_html($s[$field]); ?></span><?php endif; ?></div><?php endif; ?></div></section>
+          <section class="fptlp-hero fptlp-hero--stacked"><?php $this->render_banner_slider($s); ?><div class="fptlp-hero-copy"><span class="fptlp-eyebrow"><?php echo esc_html($s['eyebrow']); ?></span><h1><?php echo esc_html($s['headline']); ?></h1><?php if ($s['service_area']!==''): ?><p class="fptlp-service-area">Khu vực phục vụ: <?php echo esc_html($s['service_area']); ?></p><?php endif; ?><p><?php echo esc_html($s['intro']); ?></p><p class="fptlp-hero-note"><?php echo esc_html($s['hero_note']); ?></p><div class="fptlp-hero-actions"><button type="button" class="fptlp-btn fptlp-popup-open" data-modal="register"><?php echo esc_html($s['hero_cta'] ?: 'Nhận báo giá tại địa chỉ của bạn'); ?></button><button type="button" class="fptlp-hero-callback fptlp-popup-open" data-modal="callback">Chưa biết chọn gói? Nhờ tư vấn</button></div><?php if ($s['trust_1']!=='' || $s['trust_2']!=='' || $s['trust_3']!==''): ?><div class="fptlp-trust"><?php foreach (['trust_1','trust_2','trust_3'] as $field) if ($s[$field]!==''): ?><span>✓ <?php echo esc_html($s[$field]); ?></span><?php endif; ?></div><?php endif; ?></div></section>
 
           <?php if ($s['wpforms_shortcode'] !== '' && shortcode_exists('wpforms')):
               $embedded_form = do_shortcode($s['wpforms_shortcode']);
