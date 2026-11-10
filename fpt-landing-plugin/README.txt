@@ -1,3 +1,8 @@
+FPT LANDING PAGE — 1.9.20
+- Banner nằm trên tiêu đề. Cài đặt chung: banner đầu tiên và slide 2–6.
+- Chuyển ảnh bằng nút, chấm chọn, bàn phím hoặc vuốt trên điện thoại.
+- Một ảnh: ẩn nút chuyển. Không tự chạy. Xóa cache sau khi cập nhật.
+
 FPT LANDING PAGE — 1.9.19
 ========================================
 - Cài đặt chung > Form WPForms phía trên khu vực lắp đặt.

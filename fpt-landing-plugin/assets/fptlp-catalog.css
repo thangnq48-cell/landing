@@ -115,3 +115,19 @@
 .fptlp .fptlp-vvip-bar>span{color:var(--vvip-label-color,#b84b06)}
 .fptlp .fptlp-vvip-bar h2{color:var(--vvip-title-color,#a64208)}
 .fptlp .fptlp-vvip-intro{color:var(--vvip-description-color,#667085)}
+
+/* Banner slider above the headline. */
+.fptlp .fptlp-hero--stacked{display:flex;flex-direction:column;align-items:stretch;gap:24px}
+.fptlp-banner-slider{position:relative;min-width:0;width:100%;border-radius:18px;overflow:hidden}
+.fptlp-banner-track{display:grid}
+.fptlp-banner-slide{grid-area:1/1;min-width:0}
+.fptlp-banner-slide[hidden]{display:block!important;visibility:hidden;pointer-events:none}
+.fptlp .fptlp-banner-slide img{display:block;width:100%;height:100%;object-fit:contain;margin:0}
+.fptlp .fptlp-banner-arrow{position:absolute;top:50%;transform:translateY(-50%);display:flex;align-items:center;justify-content:center;width:36px;height:36px;min-height:0;padding:0;margin:0;border:1.5px solid white;border-radius:50%;background:transparent;color:white;box-shadow:none;cursor:pointer;line-height:1;font-size:30px;text-shadow:0 1px 3px #0006}
+.fptlp-banner-prev{left:14px}.fptlp-banner-next{right:14px}
+.fptlp .fptlp-banner-arrow:hover{background:#0002;color:white}
+.fptlp-banner-dots{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:5px;padding:5px 7px;border-radius:20px;background:#0004}
+.fptlp .fptlp-banner-dots button{display:block;width:7px;height:7px;min-height:0;padding:0;margin:0;background:white;border:0;border-radius:10px;cursor:pointer;box-shadow:none}
+.fptlp .fptlp-banner-dots button[aria-pressed="true"]{width:22px}
+.fptlp .fptlp-banner-slider button:focus-visible{outline:2px solid #123d81;outline-offset:3px}
+@media(max-width:600px){.fptlp .fptlp-hero--stacked{gap:18px;padding:14px}.fptlp-banner-slider{border-radius:12px}.fptlp .fptlp-banner-arrow{width:30px;height:30px;font-size:25px}.fptlp-banner-prev{left:6px}.fptlp-banner-next{right:6px}}

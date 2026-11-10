@@ -2,7 +2,7 @@
 /**
  * Plugin Name: FPT Landing Page Đăng Ký
  * Description: Landing page dịch vụ Internet FPT responsive, quản lý gói cước và lưu khách hàng đăng ký. Dùng shortcode [fpt_landing_page].
- * Version: 1.9.19
+ * Version: 1.9.20
  * Author: OpenAI
  * Text Domain: fpt-landing-page
  */
@@ -89,7 +89,7 @@ class FPT_Landing_Page {
             'brand' => 'FPT Internet', 'eyebrow' => 'KẾT NỐI NHANH – TRẢI NGHIỆM MƯỢT',
             'headline' => 'Lắp Internet FPT cho gia đình',
             'intro' => 'Tư vấn gói Internet phù hợp nhu cầu sử dụng. Để lại thông tin, nhân viên sẽ liên hệ xác nhận giá và ưu đãi theo khu vực.',
-            'phone' => '0906711467', 'cta' => 'Đăng ký tư vấn', 'accent' => '#f57e20', 'banner_url' => '',
+            'phone' => '0906711467', 'cta' => 'Đăng ký tư vấn', 'accent' => '#f57e20', 'banner_url' => '', 'banner_slide_2'=>'', 'banner_slide_3'=>'', 'banner_slide_4'=>'', 'banner_slide_5'=>'', 'banner_slide_6'=>'',
             'notice' => 'Giá và ưu đãi có thể thay đổi theo khu vực, thời điểm.', 'package_default_category' => 'combo-vvip', 'notification_email' => get_option('admin_email'), 'registration_heading' => 'Đăng ký wifi FPT',
             'packages' => "Internet Giga|195.000đ|300 Mbps / 300 Mbps|Modem Wi-Fi 6;Kết nối ổn định;Phù hợp gia đình|Giá tốt\nInternet Sky|220.000đ|1 Gbps / 300 Mbps|Modem Wi-Fi 6;Xem phim mượt;Hỗ trợ tư vấn lắp đặt|Phổ biến\nInternet Meta|300.000đ|1 Gbps / 1 Gbps|Modem Wi-Fi 6;Phù hợp nhiều thiết bị;Tốc độ đối xứng|Tốc độ cao\nCombo Giga V.VIP|220.000đ|300 Mbps / 300 Mbps|Modem Wi-Fi 6;Xem Ngoại hạng Anh;Ưu đãi tùy khu vực|Ưu đãi\nCombo Sky V.VIP|239.000đ|1 Gbps / 300 Mbps|Modem Wi-Fi 6;Truyền hình FPT Play;Tư vấn lắp đặt|Bán chạy\nCombo Meta V.VIP|339.000đ|1 Gbps / 1 Gbps|Modem Wi-Fi 6;Internet kết hợp truyền hình;Giải trí đa thiết bị|Cao cấp",
         ];
@@ -207,6 +207,7 @@ class FPT_Landing_Page {
             }
         }
         $out['intro'] = isset($input['intro']) ? sanitize_textarea_field($input['intro']) : $out['intro'];
+        foreach (range(2,6) as $n) { $field='banner_slide_'.$n; if (isset($input[$field]) && is_string($input[$field])) $out[$field]=esc_url_raw($input[$field]); }
         $out['banner_url'] = isset($input['banner_url']) ? esc_url_raw($input['banner_url']) : $out['banner_url'];
         $out['accent'] = isset($input['accent']) && preg_match('/^#[0-9a-fA-F]{6}$/', $input['accent']) ? $input['accent'] : $out['accent'];
         $out['packages'] = isset($input['packages']) ? sanitize_textarea_field($input['packages']) : $out['packages'];
@@ -322,6 +323,8 @@ class FPT_Landing_Page {
         <?php endforeach; ?><tr><td colspan="2"><p class="description">Chọn cùng màu nền đầu và cuối để dùng nền một màu. Bấm Lưu cài đặt, sau đó xóa cache nếu website chưa cập nhật.</p></td></tr>
         <tr><th><label for="fptlp_accent">Màu chủ đạo</label></th><td><input type="color" id="fptlp_accent" name="<?php echo esc_attr(self::OPT); ?>[accent]" value="<?php echo esc_attr($s['accent']); ?>"></td></tr>
         <tr><th>Ảnh banner đầu trang</th><td><?php $this->image_field(self::OPT.'[banner_url]', $s['banner_url'], 'Ảnh banner'); ?></td></tr>
+        <?php foreach (range(2,6) as $n): ?><tr><th>Banner slide <?php echo (int)$n; ?></th><td><?php $this->image_field(self::OPT.'[banner_slide_'.$n.']', $s['banner_slide_'.$n], 'Ảnh slide '.$n); ?><p class="description">Để trống để bỏ qua. Dùng ảnh cùng tỷ lệ với banner đầu tiên để chuyển ảnh ổn định.</p></td></tr><?php endforeach; ?>
+
         <tr><th>Cam kết hỗ trợ</th><td><?php foreach (['trust_1','trust_2','trust_3'] as $i=>$field): ?><p><label for="fptlp_<?php echo esc_attr($field); ?>">Nội dung <?php echo (int)$i+1; ?></label><br><input class="regular-text" id="fptlp_<?php echo esc_attr($field); ?>" name="<?php echo esc_attr(self::OPT.'['.$field.']'); ?>" value="<?php echo esc_attr($s[$field]); ?>"></p><?php endforeach; ?><p class="description">Ba dòng có dấu ✓ dưới phần giới thiệu đầu trang. Để trống dòng nào để ẩn dòng đó.</p></td></tr>
         <tr><th>Danh mục trống</th><td><input type="hidden" name="<?php echo esc_attr(self::OPT); ?>[hide_empty_categories]" value="0"><label><input type="checkbox" name="<?php echo esc_attr(self::OPT); ?>[hide_empty_categories]" value="1" <?php if ($s['hide_empty_categories']==='1') echo 'checked'; ?>> Ẩn danh mục chưa có gói, bao gồm mục doanh nghiệp</label><p class="description">Bật để trang gọn hơn. Các danh mục vẫn chỉnh sửa được trong quản trị.</p></td></tr>
         <tr><th>Danh sách gói cước</th><td><p>V.VIP hiển thị riêng phía trên, ba nhóm còn lại dùng chung thanh tab và doanh nghiệp hiển thị riêng phía dưới; mỗi nhóm hiển thị tối đa 6 gói.</p><p><a class="button button-secondary" href="<?php echo esc_url(admin_url('admin.php?page=fptlp-packages')); ?>">Mở Quản lý gói cước theo tab</a></p></td></tr>
@@ -337,9 +340,24 @@ class FPT_Landing_Page {
     public function enqueue_admin_assets($hook) {
         if (!in_array($hook, $this->admin_page_hooks, true) || !current_user_can('manage_options')) return;
         wp_enqueue_media();
-        wp_enqueue_style('fptlp-admin', plugins_url('assets/fptlp-admin.css', __FILE__), [], '1.9.19');
-        wp_enqueue_script('fptlp-admin', plugins_url('assets/fptlp-admin.js', __FILE__), ['jquery', 'media-editor'], '1.9.19', true);
+        wp_enqueue_style('fptlp-admin', plugins_url('assets/fptlp-admin.css', __FILE__), [], '1.9.20');
+        wp_enqueue_script('fptlp-admin', plugins_url('assets/fptlp-admin.js', __FILE__), ['jquery', 'media-editor'], '1.9.20', true);
     }
+    private function render_banner_slider($s) {
+        $slides=[];
+        foreach (['banner_url','banner_slide_2','banner_slide_3','banner_slide_4','banner_slide_5','banner_slide_6'] as $field) {
+            if (!empty($s[$field])) $slides[]=$s[$field];
+        }
+        if (!$slides) return;
+        ?><div class="fptlp-banner-slider" role="region" aria-label="Banner ưu đãi" aria-roledescription="carousel">
+        <div class="fptlp-banner-track"><?php foreach ($slides as $index=>$url): ?><div class="fptlp-banner-slide" role="group" aria-roledescription="slide" aria-label="<?php echo esc_attr(($index+1).' / '.count($slides)); ?>" <?php if ($index) echo 'hidden'; ?>><img src="<?php echo esc_url($url); ?>" alt="<?php echo esc_attr($s['headline'].' — banner '.($index+1)); ?>" loading="<?php echo $index?'lazy':'eager'; ?>" <?php if (!$index) echo 'fetchpriority="high"'; ?>></div><?php endforeach; ?></div>
+        <?php if (count($slides)>1): ?>
+        <button class="fptlp-banner-arrow fptlp-banner-prev" type="button" aria-label="Banner trước"><span aria-hidden="true">‹</span></button>
+        <button class="fptlp-banner-arrow fptlp-banner-next" type="button" aria-label="Banner tiếp theo"><span aria-hidden="true">›</span></button>
+        <div class="fptlp-banner-dots" aria-label="Chọn banner"><?php foreach ($slides as $index=>$url): ?><button type="button" aria-label="Xem banner <?php echo $index+1; ?>" aria-pressed="<?php echo $index?'false':'true'; ?>"></button><?php endforeach; ?></div>
+        <?php endif; ?></div><?php
+    }
+
     private function image_field($name, $url, $label) {
         ?>
         <div class="fptlp-image-field">
@@ -458,12 +476,12 @@ class FPT_Landing_Page {
         <?php submit_button('Lưu cài đặt đăng ký'); echo '</form></div>';
     }
     public function register_assets() {
-        wp_register_style('fptlp-style', plugins_url('assets/fptlp.css', __FILE__), [], '1.9.19');
-        wp_register_script('fptlp-script', plugins_url('assets/fptlp.js', __FILE__), [], '1.9.19', true);
-        wp_register_style('fptlp-catalog', plugins_url('assets/fptlp-catalog.css', __FILE__), ['fptlp-style'], '1.9.19');
-        wp_register_script('fptlp-catalog', plugins_url('assets/fptlp-catalog.js', __FILE__), ['fptlp-script'], '1.9.19', true);
-        wp_register_style('fptlp-content', plugins_url('assets/fptlp-content.css', __FILE__), ['fptlp-catalog'], '1.9.19');
-        wp_register_script('fptlp-content', plugins_url('assets/fptlp-content.js', __FILE__), ['fptlp-catalog'], '1.9.19', true);
+        wp_register_style('fptlp-style', plugins_url('assets/fptlp.css', __FILE__), [], '1.9.20');
+        wp_register_script('fptlp-script', plugins_url('assets/fptlp.js', __FILE__), [], '1.9.20', true);
+        wp_register_style('fptlp-catalog', plugins_url('assets/fptlp-catalog.css', __FILE__), ['fptlp-style'], '1.9.20');
+        wp_register_script('fptlp-catalog', plugins_url('assets/fptlp-catalog.js', __FILE__), ['fptlp-script'], '1.9.20', true);
+        wp_register_style('fptlp-content', plugins_url('assets/fptlp-content.css', __FILE__), ['fptlp-catalog'], '1.9.20');
+        wp_register_script('fptlp-content', plugins_url('assets/fptlp-content.js', __FILE__), ['fptlp-catalog'], '1.9.20', true);
         // Detect normal content, synced blocks and Elementor templates before wp_head.
         if ($this->should_load_assets()) $this->enqueue_landing_assets();
     }
@@ -633,7 +651,7 @@ class FPT_Landing_Page {
           $messages=['success'=>'Cảm ơn bạn! Thông tin đã được ghi nhận.','duplicate'=>'Yêu cầu này đã được ghi nhận trước đó. Bạn không cần gửi lại.','invalid_phone'=>'Số điện thoại chưa hợp lệ. Vui lòng nhập số di động hoặc số cố định Việt Nam, có thể dùng +84.','expired'=>'Phiên đăng ký đã hết hạn. Vui lòng tải lại trang rồi thử lại.','rate_limited'=>'Bạn đã gửi nhiều yêu cầu trong thời gian ngắn. Vui lòng thử lại sau 10 phút hoặc gọi hotline.','busy'=>'Yêu cầu đang được xử lý. Vui lòng chờ một chút trước khi gửi lại.','error'=>'Chưa gửi được thông tin. Vui lòng thử lại hoặc gọi hotline.'];
           if (isset($messages[$status])): $ok=in_array($status,['success','duplicate'],true); ?><div id="fptlp-feedback" tabindex="-1" class="<?php echo $ok?'fptlp-success':'fptlp-error'; ?>" role="<?php echo $ok?'status':'alert'; ?>"><?php echo esc_html($messages[$status]); ?></div><?php endif; ?>
 
-          <section class="fptlp-hero"><div class="fptlp-hero-copy"><span class="fptlp-eyebrow"><?php echo esc_html($s['eyebrow']); ?></span><h1><?php echo esc_html($s['headline']==='Lắp mạng FPT – Chọn gói phù hợp cho gia đình bạn'?'Lắp Internet FPT cho gia đình':$s['headline']); ?></h1><?php if ($s['service_area']!==''): ?><p class="fptlp-service-area">Khu vực phục vụ: <?php echo esc_html($s['service_area']); ?></p><?php endif; ?><p><?php echo esc_html($s['intro']); ?></p><p class="fptlp-hero-note"><?php echo esc_html($s['hero_note']); ?></p><div class="fptlp-hero-actions"><button type="button" class="fptlp-btn fptlp-popup-open" data-modal="register"><?php echo esc_html($s['hero_cta'] ?: 'Nhận báo giá tại địa chỉ của bạn'); ?></button><button type="button" class="fptlp-hero-callback fptlp-popup-open" data-modal="callback">Chưa biết chọn gói? Nhờ tư vấn</button></div><?php if ($s['trust_1']!=='' || $s['trust_2']!=='' || $s['trust_3']!==''): ?><div class="fptlp-trust"><?php foreach (['trust_1','trust_2','trust_3'] as $field) if ($s[$field]!==''): ?><span>✓ <?php echo esc_html($s[$field]); ?></span><?php endif; ?></div><?php endif; ?></div><?php if (!empty($s['banner_url'])): ?><div class="fptlp-hero-art fptlp-hero-banner"><img src="<?php echo esc_url($s['banner_url']); ?>" alt="<?php echo esc_attr($s['headline']); ?>" loading="eager" fetchpriority="high"></div><?php else: ?><div class="fptlp-hero-art" aria-hidden="true"><div class="fptlp-orbit"></div><div class="fptlp-wifi">⌁</div><div class="fptlp-router"><i></i><i></i><i></i><b></b></div><div class="fptlp-speed">Wi-Fi 6 <small>Kết nối ổn định</small></div></div><?php endif; ?></section>
+          <section class="fptlp-hero fptlp-hero--stacked"><?php $this->render_banner_slider($s); ?><div class="fptlp-hero-copy"><span class="fptlp-eyebrow"><?php echo esc_html($s['eyebrow']); ?></span><h1><?php echo esc_html($s['headline']==='Lắp mạng FPT – Chọn gói phù hợp cho gia đình bạn'?'Lắp Internet FPT cho gia đình':$s['headline']); ?></h1><?php if ($s['service_area']!==''): ?><p class="fptlp-service-area">Khu vực phục vụ: <?php echo esc_html($s['service_area']); ?></p><?php endif; ?><p><?php echo esc_html($s['intro']); ?></p><p class="fptlp-hero-note"><?php echo esc_html($s['hero_note']); ?></p><div class="fptlp-hero-actions"><button type="button" class="fptlp-btn fptlp-popup-open" data-modal="register"><?php echo esc_html($s['hero_cta'] ?: 'Nhận báo giá tại địa chỉ của bạn'); ?></button><button type="button" class="fptlp-hero-callback fptlp-popup-open" data-modal="callback">Chưa biết chọn gói? Nhờ tư vấn</button></div><?php if ($s['trust_1']!=='' || $s['trust_2']!=='' || $s['trust_3']!==''): ?><div class="fptlp-trust"><?php foreach (['trust_1','trust_2','trust_3'] as $field) if ($s[$field]!==''): ?><span>✓ <?php echo esc_html($s[$field]); ?></span><?php endif; ?></div><?php endif; ?></div></section>
 
           <?php if ($s['wpforms_shortcode'] !== '' && shortcode_exists('wpforms')):
               $embedded_form = do_shortcode($s['wpforms_shortcode']);
