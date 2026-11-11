@@ -1,3 +1,6 @@
+FPT LANDING PAGE — 1.9.26
+- Đổi lựa chọn dịch vụ trong form thành “+ Combo truyền hình”; giá trị lưu cũng được cập nhật.
+
 FPT LANDING PAGE — 1.9.25
 - Mỗi ảnh banner tự giữ tỷ lệ riêng; khung slide co theo chiều cao ảnh đang hiển thị.
 

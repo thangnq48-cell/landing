@@ -2,7 +2,7 @@
 /**
  * Plugin Name: FPT Landing Page Đăng Ký
  * Description: Landing page dịch vụ Internet FPT responsive, quản lý gói cước và lưu khách hàng đăng ký. Dùng shortcode [fpt_landing_page].
- * Version: 1.9.25
+ * Version: 1.9.26
  * Author: OpenAI
  * Text Domain: fpt-landing-page
  */
@@ -339,8 +339,8 @@ class FPT_Landing_Page {
     public function enqueue_admin_assets($hook) {
         if (!in_array($hook, $this->admin_page_hooks, true) || !current_user_can('manage_options')) return;
         wp_enqueue_media();
-        wp_enqueue_style('fptlp-admin', plugins_url('assets/fptlp-admin.css', __FILE__), [], '1.9.25');
-        wp_enqueue_script('fptlp-admin', plugins_url('assets/fptlp-admin.js', __FILE__), ['jquery', 'media-editor'], '1.9.25', true);
+        wp_enqueue_style('fptlp-admin', plugins_url('assets/fptlp-admin.css', __FILE__), [], '1.9.26');
+        wp_enqueue_script('fptlp-admin', plugins_url('assets/fptlp-admin.js', __FILE__), ['jquery', 'media-editor'], '1.9.26', true);
     }
     private function render_banner_slider($s) {
         $slides=[];
@@ -477,12 +477,12 @@ class FPT_Landing_Page {
         <?php submit_button('Lưu cài đặt đăng ký'); echo '</form></div>';
     }
     public function register_assets() {
-        wp_register_style('fptlp-style', plugins_url('assets/fptlp.css', __FILE__), [], '1.9.25');
-        wp_register_script('fptlp-script', plugins_url('assets/fptlp.js', __FILE__), [], '1.9.25', true);
-        wp_register_style('fptlp-catalog', plugins_url('assets/fptlp-catalog.css', __FILE__), ['fptlp-style'], '1.9.25');
-        wp_register_script('fptlp-catalog', plugins_url('assets/fptlp-catalog.js', __FILE__), ['fptlp-script'], '1.9.25', true);
-        wp_register_style('fptlp-content', plugins_url('assets/fptlp-content.css', __FILE__), ['fptlp-catalog'], '1.9.25');
-        wp_register_script('fptlp-content', plugins_url('assets/fptlp-content.js', __FILE__), ['fptlp-catalog'], '1.9.25', true);
+        wp_register_style('fptlp-style', plugins_url('assets/fptlp.css', __FILE__), [], '1.9.26');
+        wp_register_script('fptlp-script', plugins_url('assets/fptlp.js', __FILE__), [], '1.9.26', true);
+        wp_register_style('fptlp-catalog', plugins_url('assets/fptlp-catalog.css', __FILE__), ['fptlp-style'], '1.9.26');
+        wp_register_script('fptlp-catalog', plugins_url('assets/fptlp-catalog.js', __FILE__), ['fptlp-script'], '1.9.26', true);
+        wp_register_style('fptlp-content', plugins_url('assets/fptlp-content.css', __FILE__), ['fptlp-catalog'], '1.9.26');
+        wp_register_script('fptlp-content', plugins_url('assets/fptlp-content.js', __FILE__), ['fptlp-catalog'], '1.9.26', true);
         // Detect normal content, synced blocks and Elementor templates before wp_head.
         if ($this->should_load_assets()) $this->enqueue_landing_assets();
     }
@@ -702,7 +702,7 @@ class FPT_Landing_Page {
           <div class="fptlp-modal" hidden><div class="fptlp-modal-shade" data-close-modal></div><div class="fptlp-modal-panel" role="dialog" aria-modal="true" aria-labelledby="<?php echo esc_attr($modal_uid); ?>-title" tabindex="-1"><button type="button" class="fptlp-modal-close" aria-label="Đóng" data-close-modal>×</button><h2 id="<?php echo esc_attr($modal_uid); ?>-title" data-fptlp-modal-title><?php echo esc_html($s['registration_heading'] ?: 'Đăng ký wifi FPT'); ?></h2>
           <form id="<?php echo esc_attr($modal_uid); ?>-form" class="fptlp-form fptlp-popup-form" method="post" action="<?php echo $form_action; ?>"><input type="hidden" name="action" value="fptlp_submit"><?php echo '<input type="hidden" name="fptlp_nonce" value="'.esc_attr(wp_create_nonce('fptlp_submit')).'">'; ?><input type="hidden" name="fptlp_package" value=""><input type="hidden" name="fptlp_kind" value="register"><input type="hidden" name="fptlp_region" value=""><input type="hidden" name="fptlp_package_key" value=""><input type="hidden" name="_wp_http_referer" value="<?php echo esc_url($landing_return_url); ?>"><input type="hidden" name="redirect_to" value="<?php echo esc_url($landing_return_url); ?>">
           <div class="fptlp-form-result" role="status" tabindex="-1" hidden></div><label>Số điện thoại <span>*</span><input name="fptlp_phone" type="tel" inputmode="tel" autocomplete="tel" required maxlength="24" placeholder="Nhập số điện thoại"></label>
-          <div class="fptlp-register-extra"><label>Họ và tên (không bắt buộc)<input name="fptlp_name" autocomplete="name" maxlength="100" placeholder="Nhập họ tên"></label><label>Địa chỉ lắp đặt (không bắt buộc)<input name="fptlp_address" maxlength="250" placeholder="Phường/xã, địa chỉ lắp đặt"></label><div class="fptlp-service-title">Dịch vụ cần tư vấn</div><div class="fptlp-service-options"><label><input type="checkbox" name="fptlp_services[]" value="Internet" checked> + Internet</label><label><input type="checkbox" name="fptlp_services[]" value="Truyền hình"> + Truyền hình</label><label><input type="checkbox" name="fptlp_services[]" value="Camera"> + Camera</label></div></div>
+          <div class="fptlp-register-extra"><label>Họ và tên (không bắt buộc)<input name="fptlp_name" autocomplete="name" maxlength="100" placeholder="Nhập họ tên"></label><label>Địa chỉ lắp đặt (không bắt buộc)<input name="fptlp_address" maxlength="250" placeholder="Phường/xã, địa chỉ lắp đặt"></label><div class="fptlp-service-title">Dịch vụ cần tư vấn</div><div class="fptlp-service-options"><label><input type="checkbox" name="fptlp_services[]" value="Internet" checked> + Internet</label><label><input type="checkbox" name="fptlp_services[]" value="Combo truyền hình"> + Combo truyền hình</label><label><input type="checkbox" name="fptlp_services[]" value="Camera"> + Camera</label></div></div>
           <label class="fptlp-honey" aria-hidden="true">Không điền ô này<input name="fptlp_website" tabindex="-1" autocomplete="off"></label><button class="fptlp-popup-submit" type="submit">Đăng ký nhanh ›</button><p class="fptlp-form-consent">Gửi thông tin để được liên hệ tư vấn về dịch vụ.</p></form></div></div>
         </div><?php return ob_get_clean();
     }
